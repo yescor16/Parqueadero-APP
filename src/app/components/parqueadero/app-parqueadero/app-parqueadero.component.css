@@ -1,0 +1,40 @@
+input:focus{
+    text-transform: uppercase!important;
+}
+#parqueadero .menu{
+    background-color: white;
+}
+#parqueadero .menu{
+    height: 100%;
+}
+#parqueadero .menu-item{
+    margin-top: 20px;
+    padding: 20px;
+    cursor: pointer;
+    background:#25313c
+}
+#parqueadero .menu-item:hover{
+    background: #50afdc;
+}
+#parqueadero .menu-item img{
+    display: block;
+    margin-left:auto ;
+    margin-right: auto;
+}
+#parqueadero .content{
+    padding: 30px;
+}
+@media(min-width:768px){
+    #parqueadero .menu{
+        height: 100%;
+    }
+    #parqueadero .content{
+        overflow: auto;
+    }
+}
+@media(max-width:768px){
+   
+    #parqueadero .content{
+        overflow: hidden;
+    }
+}

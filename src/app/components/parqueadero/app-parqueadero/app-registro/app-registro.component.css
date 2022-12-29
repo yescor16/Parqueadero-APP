@@ -1,0 +1,6 @@
+#tarifa{
+    float: left!important;;
+}
+input, select{
+    text-transform: uppercase!important;
+}

@@ -1,0 +1,169 @@
+<div class="text-center" id="tituloIngreso">
+  <h3>SALIDA DE VEHICULO</h3>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #tabla1>
+
+    <ng-container matColumnDef="vehiculo">
+      <th mat-header-cell *matHeaderCellDef> Vehiculo </th>
+      <td mat-cell *matCellDef="let element"> {{element.vehiculo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="placa">
+      <th mat-header-cell *matHeaderCellDef> Placa </th>
+      <td mat-cell *matCellDef="let element"> {{element.placa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="propietario">
+      <th mat-header-cell *matHeaderCellDef> Propietario </th>
+      <td mat-cell *matCellDef="let element"> {{element.propietario}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="valor_tarifa">
+      <th mat-header-cell *matHeaderCellDef> Tarifa </th>
+      <td mat-cell *matCellDef="let element"> {{element.valor_tarifa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha_ingreso">
+      <th mat-header-cell *matHeaderCellDef> Ingreso </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_ingreso}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descuento">
+      <th mat-header-cell *matHeaderCellDef> descuento </th>
+      <td mat-cell *matCellDef="let element">
+        <input class="form-check-input" type="checkbox" id="descuento" name="descuento"  
+        #descuento="ngModel" [(ngModel)]="element.aplicaDescuento" [checked]="true"
+        > </td>
+    </ng-container>
+
+    <ng-container matColumnDef="salida">
+      <th mat-header-cell *matHeaderCellDef> Salida </th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="pasarDatos(element)" class="btn btn-light">
+          <i class="fa fa-money"></i>
+        </button>  
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Pago de salida</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form #form="ngForm" (ngSubmit)="resgistrarSalida()">
+          <div class="row form-group">
+            <div class="col-md-8 col-12 form-group " >
+              <label for="propietario">Propietario</label>
+              <input type="text" name="propietario" id="propietario" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.propietario}}"
+              >
+            </div>
+            <div class="col-md-4 col-12 form-group " >
+              <label for="id_propietario">Identificación</label>
+              <input type="text" name="id_propietario" id="id_propietario" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.id_propietario}}"
+              >
+            </div>
+
+          </div>
+          <div class="row form-group">
+            <div class="col-md-6 col-12 form-group " >
+              <label for="fecha_ingreso">Ingreso</label>
+              <input type="text" name="fecha_ingreso" id="fecha_ingreso" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.fecha_ingreso}}"
+              >
+            </div>
+            <div class="col-md-6 col-12 form-group " >
+              <label for="fecha_salida">Salida</label>
+              <input type="text" name="fecha_salida" id="fecha_salida" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.fecha_salida}}"
+              >
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-8 col-12 form-group " >
+              <label for="placa">Placa</label>
+              <input type="text" name="placa" id="placa" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.placa}}"
+              >
+            </div>
+            <div class="col-md-4 col-12 form-group " >
+              <label for="valor_tarifa">Tarifa</label>
+              <input type="text" name="valor_tarifa" id="valor_tarifa" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.valor_tarifa}}"
+              >
+            </div>
+          </div>
+          
+          <div class="row form-group">
+            <div class="col-md-6 col-12 form-group " >
+              <label for="minutos_transcurridos">Minutos transcurridos</label>
+              <input type="text" name="minutos_transcurridos" id="minutos_transcurridos" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.minutos_transcurridos  | number:'1.0-0' }}"
+              >
+            </div>
+            <div class="col-md-6 col-12 form-group " >
+              <label for="valor_tiempo">Valor a pagar</label>
+              <input type="text" name="valor_tiempo" id="valor_tiempo" maxlength="6" minlength="3" 
+              required autocomplete="off" disabled class="form-control" value="{{salidaVehiculo.valor_tiempo | number:'1.0-0' }}"
+              >
+            </div>
+          </div> 
+          <hr>
+        
+           <div class="row form-group  {{!salidaVehiculo.aplicaDescuento ? 'd-none':'d-block'}}"  id="divFactura">
+              <div class="col-md-12 col-12 form-group" >
+                <label for="numero_factura">Factura</label>
+                <input type="text" name="numero_factura" id="numero_factura" maxlength="10" minlength="3" 
+                required="{{salidaVehiculo.aplicaDescuento}}" 
+                placeholder="Numero de factura en caso de aplicar descuento"
+                autocomplete="off"  class="form-control" 
+                #numero_factura="ngModel"
+                pattern="[0-9]+" 
+               [(ngModel)]="salidaVehiculo.numero_factura"
+               [ngClass]="{
+                 'is-valid': numero_factura.dirty && !numero_factura.errors,
+                 'is-invalid': numero_factura.dirty && numero_factura.errors
+               }"
+          
+               >
+               <div class="valid-feedback">
+                 <span>!Correcto¡</span>
+               </div>
+               <div class="invalid-feedback">
+                 <span *ngIf="numero_factura.errors?.['pattern']">Numero factura incorrecta</span>
+               </div>
+              </div>
+            </div>
+
+
+          <br>
+            <div class="row form-group">
+              <button type="submit"  [disabled]="form.invalid" data-bs-dismiss="modal" class="btn btn-primary" >Pagar</button>
+            </div>
+            
+
+            
+        
+        </form>
+       
+      </div>
+     
+      
+    </div>
+  </div>
+</div>

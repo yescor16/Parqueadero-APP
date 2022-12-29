@@ -1,0 +1,96 @@
+<div class="text-center" id="tituloIngreso">
+  <h3>REPORTE DE TIEMPOS</h3>
+</div>
+<form class="form-inline col-md-6 col-12 ">
+  <div class="row">
+    <div class="col-md-6 col-12 form-group">
+      <div class="input-group ">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">Desde</button>
+          </span>
+        </div>
+        <input class="form-control" placeholder="yyyy-mm-dd"
+        name="dp1"  [(ngModel)]="desde" ngbDatepicker #d1="ngbDatepicker">
+      </div>
+    </div>
+    <div class="col-md-6 col-12 form-group">
+      <div class="input-group ">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">Hasta</button>
+          </span>
+        </div>
+        <input class="form-control" placeholder="yyyy-mm-dd"
+        name="dp2"  [(ngModel)]="hasta" ngbDatepicker #d2="ngbDatepicker">
+      </div>
+
+    </div>
+    
+  </div>
+  <br>
+        <div class="row">
+          <button type="button"  type="submit" (click)="ObtenerVehiculosParqueados()" class="btn btn-primary btn-lg btn-block">Buscar</button> 
+        </div>
+</form>
+   
+<hr/>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #tabla1>
+
+    <ng-container matColumnDef="vehiculo">
+      <th mat-header-cell *matHeaderCellDef> Vehiculo </th>
+      <td mat-cell *matCellDef="let element"> {{element.vehiculo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="placa">
+      <th mat-header-cell *matHeaderCellDef> Placa </th>
+      <td mat-cell *matCellDef="let element"> {{element.placa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="propietario">
+      <th mat-header-cell *matHeaderCellDef> Propietario </th>
+      <td mat-cell *matCellDef="let element"> {{element.propietario}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="valor_tarifa">
+      <th mat-header-cell *matHeaderCellDef> Tarifa </th>
+      <td mat-cell *matCellDef="let element"> {{element.valor_tarifa | number:'1.0-0' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha_ingreso">
+      <th mat-header-cell *matHeaderCellDef> Ingreso </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_ingreso}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha_salida">
+      <th mat-header-cell *matHeaderCellDef> Salida </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_salida}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descuento">
+      <th mat-header-cell *matHeaderCellDef> descuento </th>
+      <td mat-cell *matCellDef="let element">
+        <input class="form-check-input" type="checkbox" id="descuento" name="descuento"  
+        #descuento="ngModel" [(ngModel)]="element.aplicaDescuento" [checked]="true" disabled
+        > </td>
+    </ng-container>
+
+ 
+
+    <ng-container matColumnDef="valor_tiempo">
+      <th mat-header-cell *matHeaderCellDef> Pagado </th>
+      <td mat-cell *matCellDef="let element"> {{element.valor_tiempo | number:'1.0-0' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="minutos_transcurridos">
+      <th mat-header-cell *matHeaderCellDef> Tiempo de parqueo </th>
+      <td mat-cell *matCellDef="let element"> {{element.minutos_transcurridos | number:'1.0-0' }} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>
+
